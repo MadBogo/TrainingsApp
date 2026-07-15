@@ -116,6 +116,7 @@ export function ExerciseLibraryScreen() {
             >
               <CardContent className="pt-4">
                 <p className="font-semibold text-ink">{exercise.name}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-ink-muted">{exercise.description}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {exercise.primaryMuscles.slice(0, 2).map((m) => (
                     <Badge key={m} tone="default">

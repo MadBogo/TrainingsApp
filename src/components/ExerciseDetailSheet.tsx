@@ -28,7 +28,9 @@ export function ExerciseDetailSheet({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent variant="sheet" className="max-w-lg sm:mx-auto">
         <DialogTitle>{exercise.name}</DialogTitle>
-        <DialogDescription className="sr-only">Exercise details for {exercise.name}</DialogDescription>
+        <DialogDescription className="mt-1.5 text-sm leading-relaxed text-ink-muted">
+          {exercise.description}
+        </DialogDescription>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {exercise.patterns.map((p) => (

@@ -199,4 +199,17 @@ describe("generateWorkout", () => {
     const strengthBlock = session.blocks.find((b) => b.role === "strength");
     expect(strengthBlock?.exercises[0]?.exerciseId).toBe("barbell-back-squat");
   });
+
+  it("picks different warmup exercises when the previous ones are passed as avoidExerciseIds", () => {
+    // Regression: "Regenerate" produced an identical workout every time with an unchanged
+    // config and no new logged history, because the engine has no randomness by design.
+    // avoidExerciseIds is how the UI tells it to steer away from what was just shown.
+    const first = generateWorkout(ctx({ style: "strength", durationMin: 45 }));
+    const firstWarmupIds = first.blocks.find((b) => b.role === "warmup")!.exercises.map((e) => e.exerciseId);
+
+    const second = generateWorkout({ ...ctx({ style: "strength", durationMin: 45 }), avoidExerciseIds: firstWarmupIds });
+    const secondWarmupIds = second.blocks.find((b) => b.role === "warmup")!.exercises.map((e) => e.exerciseId);
+
+    expect(secondWarmupIds).not.toEqual(firstWarmupIds);
+  });
 });

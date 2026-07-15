@@ -16,6 +16,8 @@ export interface Substitution {
 export interface Exercise {
   id: string;
   name: string;
+  /** One sentence: what the movement is and why it's useful. Complements, not repeats, the cues. */
+  description: string;
   aliases?: string[];
   patterns: MovementPattern[];
   primaryMuscles: FocusArea[];

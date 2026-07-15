@@ -7,6 +7,7 @@ import type { Exercise, AthleteProfile } from "@/domain";
 const sampleExercise: Exercise = {
   id: "barbell-bench-press",
   name: "Barbell Bench Press",
+  description: "The benchmark horizontal press for building chest, shoulder and triceps strength.",
   patterns: ["horizontal_push"],
   primaryMuscles: ["chest"],
   secondaryMuscles: ["arms", "shoulders"],

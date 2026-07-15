@@ -39,6 +39,13 @@ describe("exercise library data integrity", () => {
     expect(offenders.map((e) => e.id)).toEqual([]);
   });
 
+  it("gives every exercise a real description, distinct from its own name", () => {
+    const offenders = EXERCISES.filter(
+      (e) => !e.description || e.description.trim().length < 20 || e.description.trim() === e.name
+    );
+    expect(offenders.map((e) => e.id)).toEqual([]);
+  });
+
   it("covers every equipment type at least once", () => {
     const covered = new Set(EXERCISES.flatMap((e) => e.equipment));
     const missing = EQUIPMENT.filter((eq) => !covered.has(eq));

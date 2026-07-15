@@ -16,6 +16,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "arm-circles",
     name: "Arm Circles",
+    description: "A light shoulder-warming drill that lubricates the joint and wakes up the rotator cuff before pressing or pulling work.",
     patterns: ["isolation"],
     primaryMuscles: ["shoulders"],
     equipment: ["bodyweight_only"],
@@ -34,6 +35,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "leg-swings",
     name: "Leg Swings",
+    description: "A dynamic hip-mobility drill that opens up the hip through flexion, extension and rotation before loaded lower-body work.",
     patterns: ["isolation"],
     primaryMuscles: ["hip_stability"],
     secondaryMuscles: ["hamstrings"],
@@ -53,6 +55,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "inchworm-to-push-up",
     name: "Inchworm to Push-up",
+    description: "A full-body flow that stretches the posterior chain and primes the shoulders and core for the session ahead.",
     patterns: ["isolation"],
     primaryMuscles: ["full_body"],
     equipment: ["bodyweight_only"],
@@ -71,6 +74,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "jumping-jacks",
     name: "Jumping Jacks",
+    description: "A simple, fast way to raise heart rate and core temperature before higher-intensity work.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     equipment: ["bodyweight_only"],
@@ -90,6 +94,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "band-shoulder-dislocate",
     name: "Band Shoulder Dislocate",
+    description: "A shoulder-mobility drill using light band tension to open up overhead range before pressing work.",
     patterns: ["isolation"],
     primaryMuscles: ["shoulders"],
     equipment: ["resistance_bands"],
@@ -108,6 +113,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "worlds-greatest-stretch",
     name: "World's Greatest Stretch",
+    description: "A multi-plane mobility flow that opens the hips, hamstrings and thoracic spine in one continuous movement.",
     patterns: ["isolation"],
     primaryMuscles: ["full_body"],
     secondaryMuscles: ["hip_stability", "posterior_chain"],
@@ -127,6 +133,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "glute-bridge-march",
     name: "Glute Bridge March",
+    description: "A low-load glute and core activation drill that wakes up hip extension before squatting or hinging.",
     patterns: ["isolation"],
     primaryMuscles: ["glutes"],
     secondaryMuscles: ["core", "hip_stability"],
@@ -146,6 +153,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "bird-dog",
     name: "Bird Dog",
+    description: "A core-stability drill that trains the trunk to resist rotation while the limbs move independently.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     secondaryMuscles: ["hip_stability"],
@@ -167,6 +175,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "power-clean",
     name: "Power Clean",
+    description: "A full-body explosive pull from the floor to a front-rack catch, building transferable power and rate of force development.",
     patterns: ["olympic_lift_pattern"],
     primaryMuscles: ["posterior_chain"],
     secondaryMuscles: ["glutes", "quads", "shoulders"],
@@ -189,6 +198,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "hang-power-clean",
     name: "Hang Power Clean",
+    description: "A power clean started from mid-thigh, isolating the second pull and catch without the initial floor pull.",
     patterns: ["olympic_lift_pattern"],
     primaryMuscles: ["posterior_chain"],
     secondaryMuscles: ["glutes", "shoulders"],
@@ -211,6 +221,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "snatch",
     name: "Snatch",
+    description: "The most technical barbell lift — a single explosive pull from the floor directly overhead into a squat catch.",
     patterns: ["olympic_lift_pattern"],
     primaryMuscles: ["posterior_chain"],
     secondaryMuscles: ["shoulders", "glutes"],
@@ -231,6 +242,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "push-jerk",
     name: "Push Jerk",
+    description: "An overhead power movement using leg drive to send the bar overhead, then catching it in a short dip.",
     patterns: ["olympic_lift_pattern"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["quads", "core"],
@@ -252,6 +264,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "clean-and-jerk",
     name: "Clean and Jerk",
+    description: "The full two-lift combination — a clean to the shoulders followed by a jerk overhead — for total-body power under load.",
     patterns: ["olympic_lift_pattern"],
     primaryMuscles: ["full_body"],
     secondaryMuscles: ["posterior_chain", "shoulders"],
@@ -275,6 +288,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-back-squat",
     name: "Barbell Back Squat",
+    description: "The foundational lower-body strength lift — a barbell on the upper back while squatting to full depth, building quads, glutes and total-body bracing strength.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     secondaryMuscles: ["core"],
@@ -297,6 +311,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-front-squat",
     name: "Barbell Front Squat",
+    description: "A more upright squat variation with the bar racked on the front delts, demanding more quad and core control than the back squat.",
     patterns: ["squat"],
     primaryMuscles: ["quads"],
     secondaryMuscles: ["core", "glutes"],
@@ -318,6 +333,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-deadlift",
     name: "Barbell Deadlift",
+    description: "The classic hip-hinge strength lift — pulling a loaded bar from the floor to full hip extension, and one of the best total posterior-chain builders available.",
     patterns: ["hinge"],
     primaryMuscles: ["posterior_chain", "hamstrings", "back_lats"],
     secondaryMuscles: ["glutes", "forearms_grip"],
@@ -339,6 +355,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-romanian-deadlift",
     name: "Barbell Romanian Deadlift",
+    description: "A hip-hinge variation that keeps the knees mostly still, isolating the hamstrings and glutes through a controlled stretch.",
     patterns: ["hinge"],
     primaryMuscles: ["hamstrings", "posterior_chain"],
     secondaryMuscles: ["glutes"],
@@ -359,6 +376,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-bench-press",
     name: "Barbell Bench Press",
+    description: "The benchmark horizontal press — pressing a barbell from the chest to lockout, building chest, shoulder and triceps strength.",
     patterns: ["horizontal_push"],
     primaryMuscles: ["chest"],
     secondaryMuscles: ["arms", "shoulders"],
@@ -380,6 +398,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-overhead-press",
     name: "Barbell Overhead Press",
+    description: "A strict vertical press from the shoulders to overhead lockout, building raw shoulder strength without any leg drive.",
     patterns: ["vertical_push"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["arms", "core"],
@@ -401,6 +420,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-push-press",
     name: "Barbell Push Press",
+    description: "An overhead press assisted by a short leg drive, letting you move more weight than a strict press while staying under the bar.",
     patterns: ["vertical_push"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["quads", "core"],
@@ -422,6 +442,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-bent-over-row",
     name: "Barbell Bent-Over Row",
+    description: "A hip-hinged horizontal pull that builds the back and rear shoulders while demanding real trunk control under load.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["upper_back_scapular", "arms"],
@@ -442,6 +463,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "barbell-hip-thrust",
     name: "Barbell Hip Thrust",
+    description: "A glute-focused hip-extension movement performed with the upper back braced on a bench, isolating the glutes with heavy loading.",
     patterns: ["hinge"],
     primaryMuscles: ["glutes"],
     secondaryMuscles: ["hamstrings"],
@@ -463,6 +485,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-bench-press",
     name: "Dumbbell Bench Press",
+    description: "A horizontal press using independent dumbbells, adding a stability demand and deeper stretch than the barbell version.",
     patterns: ["horizontal_push"],
     primaryMuscles: ["chest"],
     secondaryMuscles: ["arms", "shoulders"],
@@ -483,6 +506,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-row",
     name: "Dumbbell Row",
+    description: "A single-arm horizontal pull braced on a bench, letting each side of the back work independently.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["upper_back_scapular", "arms"],
@@ -502,6 +526,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-shoulder-press",
     name: "Dumbbell Shoulder Press",
+    description: "A vertical press with independent dumbbells, building shoulder strength and correcting side-to-side imbalances.",
     patterns: ["vertical_push"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["arms"],
@@ -522,6 +547,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-goblet-squat",
     name: "Dumbbell Goblet Squat",
+    description: "A front-loaded squat holding a single dumbbell at the chest — an accessible way to load the squat pattern with minimal setup.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     secondaryMuscles: ["core"],
@@ -543,6 +569,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-walking-lunge",
     name: "Dumbbell Walking Lunge",
+    description: "A walking single-leg squat pattern that builds quads and glutes while challenging balance and hip stability.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     secondaryMuscles: ["hip_stability"],
@@ -563,6 +590,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-romanian-deadlift",
     name: "Dumbbell Romanian Deadlift",
+    description: "A dumbbell hip-hinge that stretches and loads the hamstrings without needing a barbell.",
     patterns: ["hinge"],
     primaryMuscles: ["hamstrings", "posterior_chain"],
     secondaryMuscles: ["glutes"],
@@ -582,6 +610,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-farmers-carry",
     name: "Dumbbell Farmer's Carry",
+    description: "A loaded carry holding a dumbbell in each hand — deceptively simple, and one of the best full-body grip and bracing builders.",
     patterns: ["carry"],
     primaryMuscles: ["forearms_grip", "core"],
     secondaryMuscles: ["full_body"],
@@ -601,6 +630,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "kettlebell-swing",
     name: "Kettlebell Swing",
+    description: "A ballistic hip-hinge that projects the kettlebell using explosive hip extension — a cornerstone posterior-chain power movement.",
     patterns: ["hinge"],
     primaryMuscles: ["posterior_chain", "glutes"],
     secondaryMuscles: ["hamstrings", "core"],
@@ -620,6 +650,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "kettlebell-clean-and-press",
     name: "Kettlebell Clean and Press",
+    description: "A kettlebell clean into an overhead press, combining a pulling skill with a pressing strength movement in one rep.",
     patterns: ["vertical_push"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["posterior_chain", "core"],
@@ -640,6 +671,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "kettlebell-turkish-get-up",
     name: "Kettlebell Turkish Get-up",
+    description: "A slow, multi-stage movement from lying to standing while keeping a kettlebell locked out overhead — builds shoulder stability and total-body control.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     secondaryMuscles: ["shoulders", "hip_stability"],
@@ -660,6 +692,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "kettlebell-front-rack-carry",
     name: "Kettlebell Front Rack Carry",
+    description: "A loaded carry holding kettlebells in the front rack position, building core bracing and upper-back endurance.",
     patterns: ["carry"],
     primaryMuscles: ["core", "forearms_grip"],
     secondaryMuscles: ["upper_back_scapular"],
@@ -681,6 +714,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "push-up",
     name: "Push-up",
+    description: "The classic bodyweight horizontal press — no equipment needed, and infinitely scalable by tempo, range or added load.",
     patterns: ["horizontal_push"],
     primaryMuscles: ["chest"],
     secondaryMuscles: ["arms", "core"],
@@ -701,6 +735,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "pull-up",
     name: "Pull-up",
+    description: "The classic bodyweight vertical pull — hanging from a bar and pulling the chin over it, a core test of relative back and arm strength.",
     patterns: ["vertical_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["arms", "forearms_grip"],
@@ -722,6 +757,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "ring-row",
     name: "Ring Row",
+    description: "A horizontal pull performed from rings at an adjustable angle, making it easy to scale the difficulty up or down.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["upper_back_scapular", "arms"],
@@ -742,6 +778,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "ring-dip",
     name: "Ring Dip",
+    description: "A horizontal/vertical press performed on unstable rings, demanding significant shoulder stability alongside chest and triceps strength.",
     patterns: ["horizontal_push"],
     primaryMuscles: ["chest"],
     secondaryMuscles: ["arms", "shoulders"],
@@ -763,6 +800,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "bar-dip",
     name: "Bar Dip",
+    description: "A horizontal/vertical press performed on a stable dip station, building chest and triceps strength through a deep range of motion.",
     patterns: ["horizontal_push"],
     primaryMuscles: ["chest"],
     secondaryMuscles: ["arms", "shoulders"],
@@ -784,6 +822,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "muscle-up",
     name: "Muscle-up",
+    description: "An advanced gymnastics skill that combines a pull-up with a dip in one continuous motion over the rings.",
     patterns: ["vertical_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["chest", "arms"],
@@ -805,6 +844,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "handstand-push-up",
     name: "Handstand Push-up",
+    description: "An inverted vertical press against a wall, building serious shoulder strength and overhead body awareness.",
     patterns: ["vertical_push"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["arms", "core"],
@@ -826,6 +866,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "pistol-squat",
     name: "Pistol Squat",
+    description: "A single-leg bodyweight squat to full depth, demanding significant quad strength, balance and ankle mobility.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     secondaryMuscles: ["hip_stability", "core"],
@@ -847,6 +888,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "air-squat",
     name: "Air Squat",
+    description: "The most basic squat pattern — bodyweight only — used to build and check squat mechanics before adding load.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     equipment: ["bodyweight_only"],
@@ -866,6 +908,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "burpee",
     name: "Burpee",
+    description: "A full-body, ground-to-standing movement that's become the default marker of unpleasant-but-effective conditioning.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     equipment: ["bodyweight_only"],
@@ -885,6 +928,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "mountain-climbers",
     name: "Mountain Climbers",
+    description: "A plank-based conditioning drill that combines core bracing with a quick alternating knee drive.",
     patterns: ["locomotion"],
     primaryMuscles: ["core"],
     secondaryMuscles: ["full_body"],
@@ -904,6 +948,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "hollow-hold",
     name: "Hollow Hold",
+    description: "A static core hold that trains the trunk to resist extension — a foundational gymnastics core position.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     equipment: ["bodyweight_only"],
@@ -925,6 +970,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "cable-row-seated",
     name: "Seated Cable Row",
+    description: "A seated horizontal pull on a cable stack, letting you isolate the back with continuous tension through the whole range.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["upper_back_scapular", "arms"],
@@ -944,6 +990,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "lat-pulldown",
     name: "Lat Pulldown",
+    description: "A machine-assisted vertical pull that builds the same muscles as a pull-up with adjustable, scalable resistance.",
     patterns: ["vertical_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["arms"],
@@ -965,6 +1012,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "leg-press",
     name: "Leg Press",
+    description: "A machine squat pattern that loads the quads and glutes heavily without the balance or bracing demands of a free-standing squat.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "glutes"],
     equipment: ["machines"],
@@ -983,6 +1031,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "leg-curl-machine",
     name: "Machine Leg Curl",
+    description: "An isolated hamstring curl that targets the muscle directly without any hip-hinge or spinal loading.",
     patterns: ["isolation"],
     primaryMuscles: ["hamstrings"],
     equipment: ["machines"],
@@ -1001,6 +1050,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "cable-woodchop",
     name: "Cable Woodchop",
+    description: "A rotational core movement pulling a cable across the body, training the trunk to generate and control rotational force.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     equipment: ["cable_machine"],
@@ -1019,6 +1069,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "face-pull-cable",
     name: "Cable Face Pull",
+    description: "A high cable pull to face height that targets the rear shoulders and upper back — a staple for shoulder health.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["upper_back_scapular"],
     secondaryMuscles: ["shoulders"],
@@ -1038,6 +1089,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dumbbell-bicep-curl",
     name: "Dumbbell Bicep Curl",
+    description: "A straightforward elbow-flexion isolation movement for building arm size and strength.",
     patterns: ["isolation"],
     primaryMuscles: ["arms"],
     equipment: ["dumbbells"],
@@ -1056,6 +1108,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "resistance-band-bicep-curl",
     name: "Resistance Band Bicep Curl",
+    description: "A band-based bicep isolation movement with no weights needed, useful when traveling or at home.",
     patterns: ["isolation"],
     primaryMuscles: ["arms"],
     equipment: ["resistance_bands"],
@@ -1074,6 +1127,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "cable-triceps-pushdown",
     name: "Cable Triceps Pushdown",
+    description: "An isolated elbow-extension movement that targets the triceps directly using constant cable tension.",
     patterns: ["isolation"],
     primaryMuscles: ["arms"],
     equipment: ["cable_machine"],
@@ -1094,6 +1148,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "band-pull-apart",
     name: "Band Pull-Apart",
+    description: "A light scapular-focused pulling movement using a resistance band, ideal for shoulder health and warm-ups.",
     patterns: ["horizontal_pull"],
     primaryMuscles: ["upper_back_scapular"],
     secondaryMuscles: ["shoulders"],
@@ -1113,6 +1168,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "band-assisted-pull-up",
     name: "Band-Assisted Pull-up",
+    description: "A pull-up variation using a looped band to offset some bodyweight, letting you build toward strict reps.",
     patterns: ["vertical_pull"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["arms"],
@@ -1135,6 +1191,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "row-erg",
     name: "Row Erg",
+    description: "A full-body, low-impact conditioning machine that builds engine capacity through a repeatable pull pattern.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     equipment: ["row_erg"],
@@ -1153,6 +1210,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "ski-erg",
     name: "Ski Erg",
+    description: "A standing, full-body pulling machine that emphasizes the lats and core more than the rower does.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     secondaryMuscles: ["back_lats", "core"],
@@ -1172,6 +1230,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "assault-bike",
     name: "Assault Bike",
+    description: "A brutal full-body conditioning machine where effort scales directly and painfully with speed.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     equipment: ["assault_bike"],
@@ -1190,6 +1249,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "treadmill-run",
     name: "Treadmill Run",
+    description: "Indoor running for steady-state aerobic work or structured intervals, independent of weather or terrain.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     secondaryMuscles: ["quads", "calves_tibialis"],
@@ -1209,6 +1269,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "outdoor-run",
     name: "Outdoor Run",
+    description: "Running outside for aerobic conditioning — the simplest possible cardio option, needing no equipment at all.",
     patterns: ["locomotion"],
     primaryMuscles: ["full_body"],
     secondaryMuscles: ["quads", "calves_tibialis"],
@@ -1228,6 +1289,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "standard-bike-steady",
     name: "Stationary Bike (Steady State)",
+    description: "Low-impact steady-state cycling, ideal for aerobic base-building without pounding the joints.",
     patterns: ["locomotion"],
     primaryMuscles: ["quads"],
     secondaryMuscles: ["hamstrings", "glutes"],
@@ -1247,6 +1309,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "sled-push",
     name: "Sled Push",
+    description: "A ground-based pushing movement against real resistance, building leg drive and conditioning with almost no eccentric loading.",
     patterns: ["locomotion"],
     primaryMuscles: ["quads", "glutes"],
     secondaryMuscles: ["core"],
@@ -1267,6 +1330,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "wall-ball",
     name: "Wall Ball",
+    description: "A squat-to-overhead-throw combination using a medicine ball against a target — a classic conditioning triplet builder.",
     patterns: ["squat"],
     primaryMuscles: ["quads", "shoulders"],
     secondaryMuscles: ["glutes", "core"],
@@ -1287,6 +1351,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "medicine-ball-slam",
     name: "Medicine Ball Slam",
+    description: "An explosive, ground-based power movement that combines a hip hinge with an aggressive overhead slam.",
     patterns: ["hinge"],
     primaryMuscles: ["core"],
     secondaryMuscles: ["posterior_chain", "shoulders"],
@@ -1306,6 +1371,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "battle-ropes-wave",
     name: "Battle Ropes Wave",
+    description: "An upper-body and core conditioning drill using heavy rope waves, punishing on the shoulders and grip.",
     patterns: ["isolation"],
     primaryMuscles: ["shoulders"],
     secondaryMuscles: ["core", "forearms_grip"],
@@ -1325,6 +1391,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "box-jump",
     name: "Box Jump",
+    description: "An explosive vertical jump onto an elevated box, building lower-body power and rate of force development.",
     patterns: ["locomotion"],
     primaryMuscles: ["quads", "glutes"],
     equipment: ["plyo_box"],
@@ -1344,6 +1411,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "broad-jump",
     name: "Broad Jump",
+    description: "A horizontal explosive jump for distance, building lower-body power without any equipment.",
     patterns: ["locomotion"],
     primaryMuscles: ["quads", "glutes"],
     equipment: ["bodyweight_only"],
@@ -1365,6 +1433,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "suitcase-carry",
     name: "Suitcase Carry",
+    description: "A single-side loaded carry that forces the core to resist side-bending — a strong anti-lateral-flexion trainer.",
     patterns: ["carry"],
     primaryMuscles: ["core", "forearms_grip"],
     secondaryMuscles: ["hip_stability"],
@@ -1384,6 +1453,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "pallof-press",
     name: "Pallof Press",
+    description: "An anti-rotation core press using a band or cable, training the trunk to resist twisting rather than to create it.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     equipment: ["resistance_bands"],
@@ -1402,6 +1472,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "dead-bug",
     name: "Dead Bug",
+    description: "A floor-based core drill that trains the trunk to stay neutral while the limbs move independently.",
     patterns: ["rotation_anti_rotation"],
     primaryMuscles: ["core"],
     equipment: ["bodyweight_only"],
@@ -1421,6 +1492,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "copenhagen-plank",
     name: "Copenhagen Plank",
+    description: "An adductor-focused side plank variation that also challenges hip and core stability.",
     patterns: ["isolation"],
     primaryMuscles: ["hip_stability"],
     secondaryMuscles: ["core"],
@@ -1440,6 +1512,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "tibialis-raise",
     name: "Tibialis Raise",
+    description: "An isolated dorsiflexion movement for the front of the shin, often neglected but valuable for ankle health and running resilience.",
     patterns: ["isolation"],
     primaryMuscles: ["calves_tibialis"],
     equipment: ["bodyweight_only"],
@@ -1458,6 +1531,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "standing-calf-raise",
     name: "Standing Calf Raise",
+    description: "An isolated calf-raise movement building the gastrocnemius and soleus through a full range of motion.",
     patterns: ["isolation"],
     primaryMuscles: ["calves_tibialis"],
     equipment: ["dumbbells"],
@@ -1478,6 +1552,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "couch-stretch",
     name: "Couch Stretch",
+    description: "A deep hip-flexor and quad stretch performed with the back foot elevated — one of the most effective lower-body openers.",
     patterns: ["isolation"],
     primaryMuscles: ["quads"],
     secondaryMuscles: ["hip_stability"],
@@ -1497,6 +1572,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "thoracic-rotation-stretch",
     name: "Thoracic Rotation Stretch",
+    description: "A quadruped rotational drill that opens up upper-back mobility, useful after pressing or overhead work.",
     patterns: ["isolation"],
     primaryMuscles: ["upper_back_scapular"],
     equipment: ["bodyweight_only"],
@@ -1515,6 +1591,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "childs-pose",
     name: "Child's Pose",
+    description: "A restful, spine-decompressing stretch that also opens the hips and lats.",
     patterns: ["isolation"],
     primaryMuscles: ["back_lats"],
     secondaryMuscles: ["hip_stability"],
@@ -1534,6 +1611,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "hamstring-floss",
     name: "Hamstring Floss",
+    description: "A gentle nerve-gliding hamstring stretch that improves flexibility without aggressive static holding.",
     patterns: ["isolation"],
     primaryMuscles: ["hamstrings"],
     equipment: ["bodyweight_only"],
@@ -1552,6 +1630,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: "cat-cow",
     name: "Cat-Cow",
+    description: "A slow spinal-mobility flow that alternates between flexion and extension, easing the whole spine.",
     patterns: ["isolation"],
     primaryMuscles: ["core"],
     secondaryMuscles: ["back_lats"],

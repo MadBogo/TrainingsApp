@@ -37,6 +37,14 @@ export interface GenerateWorkoutContext {
   oneRepMaxes: EstimatedOneRM[];
   recentLogs?: LoggedSession[];
   recentSessions?: GeneratedSession[];
+  /**
+   * Exercise ids to deprioritize for this generation specifically — used by "Regenerate" to
+   * steer away from the workout just shown. The engine has no randomness by design (same
+   * inputs always produce the same output, which is what makes it testable), so without this
+   * signal, regenerating with an unchanged config and no new logged history would otherwise
+   * produce the exact same workout every time.
+   */
+  avoidExerciseIds?: string[];
 }
 
 function buildOneRmMap(oneRepMaxes: EstimatedOneRM[]): Record<string, EstimatedOneRM> {
@@ -316,12 +324,13 @@ export function generateWorkout(ctx: GenerateWorkoutContext): GeneratedSession {
   const recentSessions = ctx.recentSessions ?? [];
 
   const fatigue = analyzeFatigue(recentLogs, recentSessions, byId);
-  const recentExerciseIds = new Set(
-    recentLogs
+  const recentExerciseIds = new Set([
+    ...recentLogs
       .filter((l) => l.completed)
       .slice(0, 3)
-      .flatMap((l) => l.loggedSets.map((s) => s.exerciseId))
-  );
+      .flatMap((l) => l.loggedSets.map((s) => s.exerciseId)),
+    ...(ctx.avoidExerciseIds ?? [])
+  ]);
 
   const selectionCtx: SelectionContext = {
     config,

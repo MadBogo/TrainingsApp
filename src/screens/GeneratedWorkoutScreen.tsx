@@ -30,7 +30,8 @@ export function GeneratedWorkoutScreen() {
     setRegenerating(true);
     try {
       const recentLogs = await logRepository.getRecent(10);
-      const next = generateWorkout({ config: session.config, exercises, oneRepMaxes, recentLogs });
+      const avoidExerciseIds = session.blocks.flatMap((b) => b.exercises.map((e) => e.exerciseId));
+      const next = generateWorkout({ config: session.config, exercises, oneRepMaxes, recentLogs, avoidExerciseIds });
       await sessionRepository.save(next);
       navigate(`/workout/${next.id}`, { replace: true });
     } finally {

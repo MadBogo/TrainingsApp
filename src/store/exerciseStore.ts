@@ -17,10 +17,11 @@ export const useExerciseStore = create<ExerciseState>((set, get) => ({
 
   init: async () => {
     if (get().exercises.length > 0) return;
-    const count = await exerciseRepository.count();
-    if (count === 0) {
-      await exerciseRepository.bulkUpsert(EXERCISES);
-    }
+    // Exercises are entirely seed data (no user-authored exercises exist), so it's always
+    // safe — and necessary — to re-sync every app load rather than only when the store is
+    // empty. Otherwise an already-seeded browser never picks up library content changes
+    // shipped in a later version of the app (e.g. a new field like `description`).
+    await exerciseRepository.bulkUpsert(EXERCISES);
     const exercises = await exerciseRepository.getAll();
     const byId = Object.fromEntries(exercises.map((e) => [e.id, e]));
     set({ exercises, byId, loading: false });
