@@ -46,8 +46,15 @@ const SECONDARY_COMPLEMENT: Partial<Record<MovementPattern, MovementPattern[]>> 
   olympic_lift_pattern: ["squat", "hinge"]
 };
 
+/**
+ * "bodyweight_only" marks an exercise as needing no equipment at all — it should never
+ * gate the exercise out just because the athlete didn't explicitly tick that checkbox,
+ * otherwise warm-ups and cooldowns (which are entirely bodyweight) vanish the moment any
+ * other equipment is selected.
+ */
 function equipmentSatisfied(exercise: Exercise, available: Equipment[]): boolean {
-  return exercise.equipment.every((e) => available.includes(e));
+  const required = exercise.equipment.filter((e) => e !== "bodyweight_only");
+  return required.every((e) => available.includes(e));
 }
 
 export interface SelectionContext {
@@ -68,7 +75,7 @@ function usableExercises(ctx: SelectionContext, extraFilter?: (e: Exercise) => b
   );
 }
 
-function score(exercise: Exercise, ctx: SelectionContext, desiredPatterns: MovementPattern[]): number {
+function score(exercise: Exercise, ctx: SelectionContext, desiredPatterns: MovementPattern[], preferLoadable = false): number {
   let s = 0;
   if (desiredPatterns.some((p) => exercise.patterns.includes(p))) s += 10;
   if (ctx.config.movementFocus.length > 0 && exercise.patterns.some((p) => ctx.config.movementFocus.includes(p))) {
@@ -78,6 +85,11 @@ function score(exercise: Exercise, ctx: SelectionContext, desiredPatterns: Movem
     if (exercise.primaryMuscles.some((m) => ctx.config.focusAreas.includes(m))) s += 6;
     if (exercise.secondaryMuscles?.some((m) => ctx.config.focusAreas.includes(m))) s += 3;
   }
+  // For the primary/secondary strength lifts, prefer an externally loaded movement over an
+  // equally pattern-matched bodyweight one whenever the athlete's equipment allows it —
+  // this is an advanced-athlete app, so a bodyweight air squat shouldn't out-rank a barbell
+  // back squat just because a barbell wasn't also the most alphabetically-first candidate.
+  if (preferLoadable && exercise.loadable) s += 2;
   for (const tag of exercise.fatigueTags ?? []) {
     if (ctx.fatigueFlags.has(tag)) s -= 5;
   }
@@ -85,10 +97,15 @@ function score(exercise: Exercise, ctx: SelectionContext, desiredPatterns: Movem
   return s;
 }
 
-function pickBest(candidates: Exercise[], ctx: SelectionContext, desiredPatterns: MovementPattern[]): Exercise | undefined {
+function pickBest(
+  candidates: Exercise[],
+  ctx: SelectionContext,
+  desiredPatterns: MovementPattern[],
+  preferLoadable = false
+): Exercise | undefined {
   if (candidates.length === 0) return undefined;
   const ranked = [...candidates].sort((a, b) => {
-    const diff = score(b, ctx, desiredPatterns) - score(a, ctx, desiredPatterns);
+    const diff = score(b, ctx, desiredPatterns, preferLoadable) - score(a, ctx, desiredPatterns, preferLoadable);
     if (diff !== 0) return diff;
     return a.id.localeCompare(b.id);
   });
@@ -120,13 +137,13 @@ export function selectConditioningContent(ctx: SelectionContext, count: number):
 export function selectStrength(ctx: SelectionContext, style: TrainingStyle): Exercise | undefined {
   const desired = STRENGTH_PATTERNS_BY_STYLE[style] ?? DEFAULT_STRENGTH_PATTERNS;
   const candidates = usableExercises(ctx, (e) => e.isCompound);
-  return pickBest(candidates, ctx, desired);
+  return pickBest(candidates, ctx, desired, true);
 }
 
 export function selectSecondary(ctx: SelectionContext, primaryPattern: MovementPattern | undefined): Exercise | undefined {
   const desired = primaryPattern ? SECONDARY_COMPLEMENT[primaryPattern] ?? DEFAULT_STRENGTH_PATTERNS : DEFAULT_STRENGTH_PATTERNS;
   const candidates = usableExercises(ctx, (e) => e.isCompound);
-  return pickBest(candidates, ctx, desired);
+  return pickBest(candidates, ctx, desired, true);
 }
 
 export function selectAccessory(ctx: SelectionContext, count: number): Exercise[] {

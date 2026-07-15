@@ -170,4 +170,33 @@ describe("generateWorkout", () => {
     const session = generateWorkout(ctx({ style: "olympic_lifting", durationMin: 45, equipment: ["barbell"] }));
     expect(session.blocks.some((b) => b.role === "conditioning")).toBe(false);
   });
+
+  it("never leaves the warmup block empty, even when bodyweight_only isn't in the selected equipment", () => {
+    // Regression: bodyweight warmup/cooldown drills must stay available regardless of the
+    // equipment multi-select, since they need no equipment to perform.
+    const session = generateWorkout(ctx({ equipment: ["barbell", "squat_rack", "dumbbells"], style: "strength" }));
+    const warmup = session.blocks.find((b) => b.role === "warmup");
+    expect(warmup).toBeDefined();
+    expect(warmup!.exercises.length).toBeGreaterThan(0);
+  });
+
+  it("never leaves the cooldown block empty when bodyweight_only isn't selected", () => {
+    const session = generateWorkout(
+      ctx({ equipment: ["barbell", "squat_rack", "dumbbells"], style: "strength", durationMin: 60 })
+    );
+    const cooldown = session.blocks.find((b) => b.role === "cooldown");
+    expect(cooldown).toBeDefined();
+    expect(cooldown!.exercises.length).toBeGreaterThan(0);
+  });
+
+  it("prefers a loaded barbell squat over a bodyweight air squat for the strength block when a rack is available", () => {
+    // Regression: both matched the "squat" pattern with an equal base score, so an
+    // alphabetical tie-break was picking "air-squat" ahead of "barbell-back-squat" even
+    // with a full rack available — wrong for an advanced-athlete strength session.
+    const session = generateWorkout(
+      ctx({ style: "strength", durationMin: 45, equipment: ["barbell", "squat_rack"], movementFocus: ["squat"] })
+    );
+    const strengthBlock = session.blocks.find((b) => b.role === "strength");
+    expect(strengthBlock?.exercises[0]?.exerciseId).toBe("barbell-back-squat");
+  });
 });

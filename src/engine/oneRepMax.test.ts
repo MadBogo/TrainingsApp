@@ -8,10 +8,10 @@ describe("estimateOneRepMax", () => {
     expect(high).toBeGreaterThan(low);
   });
 
-  it("returns a higher estimate for higher RPE at the same weight and reps (more reps in reserve implied by lower RPE)", () => {
-    const lowRpe = estimateOneRepMax(100, 5, 6);
-    const highRpe = estimateOneRepMax(100, 5, 9);
-    expect(highRpe).toBeGreaterThan(lowRpe);
+  it("returns a higher estimate for a lower RPE at the same weight and reps (more reps in reserve implies more untapped capacity)", () => {
+    const lowRpe = estimateOneRepMax(100, 5, 6); // RIR 4 — plenty left in the tank
+    const highRpe = estimateOneRepMax(100, 5, 9); // RIR 1 — nearly maximal already
+    expect(lowRpe).toBeGreaterThan(highRpe);
   });
 
   it("is close to the weight itself for a true 1-rep max effort", () => {
