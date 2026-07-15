@@ -254,7 +254,7 @@ function AddBenchmarkDialog({
   }
 
   async function handleAdd() {
-    if (!canSave || weight === "") return;
+    if (!canSave) return;
     const valueKg =
       method === "actual" ? Number(weight) : estimateOneRepMax(Number(weight), Number(reps), rpe === "" ? undefined : Number(rpe));
     await onAdd({
