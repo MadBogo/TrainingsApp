@@ -126,9 +126,20 @@ export function GeneratedWorkoutScreen() {
               </div>
               <ul className="mt-2 space-y-1">
                 {block.exercises.map((e) => (
-                  <li key={e.id} className="text-sm text-ink-muted">
-                    {e.exerciseName}
-                    {e.sets ? ` — ${e.sets}×${e.reps}` : e.reps ? ` — ${e.reps}` : ""}
+                  <li key={e.id} className="flex items-center justify-between gap-2 text-sm text-ink-muted">
+                    <span>
+                      {e.exerciseName}
+                      {e.sets ? ` — ${e.sets}×${e.reps}` : e.reps ? ` — ${e.reps}` : ""}
+                    </span>
+                    {e.loadRange ? (
+                      <Badge tone="accent" className="shrink-0">
+                        {e.loadRange.minKg}–{e.loadRange.maxKg} kg
+                      </Badge>
+                    ) : e.bodyweightNote === "Bodyweight" ? (
+                      <Badge tone="default" className="shrink-0">
+                        Bodyweight
+                      </Badge>
+                    ) : null}
                   </li>
                 ))}
               </ul>
