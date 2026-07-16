@@ -464,3 +464,64 @@ function buildIntention(config: SessionConfig, intensityPlain: string): string {
       : config.focusAreas.join(", ").replace(/_/g, " ");
   return `A ${config.durationMin}-minute ${TRAINING_STYLE_LABELS[config.style].toLowerCase()} session targeting ${focus}. ${intensityPlain}`;
 }
+
+const CONDITIONING_FORMATS: BlockFormat[] = ["amrap", "for_time", "interval", "emom", "chipper"];
+
+/**
+ * Replaces one exercise in a generated session with a substitute, recalculating identity-
+ * dependent fields (load range, cues, substitutions, scaling/progression) while preserving
+ * the original prescription (sets/reps/rest/duration) so a swap never silently changes the
+ * session's structure. Returns a new session object; the caller persists it.
+ */
+export function swapExerciseInSession(
+  session: GeneratedSession,
+  blockId: string,
+  blockExerciseId: string,
+  newExerciseId: string,
+  exercises: Exercise[],
+  oneRepMaxes: EstimatedOneRM[]
+): GeneratedSession {
+  const byId = Object.fromEntries(exercises.map((e) => [e.id, e]));
+  const replacement = byId[newExerciseId];
+  if (!replacement) return session;
+  const oneRmMap = buildOneRmMap(oneRepMaxes);
+  const intensityProfile = INTENSITY_PROFILES[session.config.intensity];
+
+  const blocks = session.blocks.map((block) => {
+    if (block.id !== blockId) return block;
+    return {
+      ...block,
+      exercises: block.exercises.map((be) => {
+        if (be.id !== blockExerciseId) return be;
+
+        if (CONDITIONING_FORMATS.includes(block.format)) {
+          return { ...buildConditioningExercise(replacement, session.config, byId, oneRmMap), id: be.id };
+        }
+        if (block.format === "duration") {
+          return { ...buildDurationExercise(replacement, be.durationSec ?? 30, byId), id: be.id };
+        }
+        // sets_reps / complex: keep the prescription, swap the identity + load.
+        const loadRange = computeLoadRange(replacement, intensityProfile, oneRmMap);
+        return {
+          ...be,
+          exerciseId: replacement.id,
+          exerciseName: replacement.name,
+          loadRange,
+          bodyweightNote: !replacement.loadable
+            ? "Bodyweight"
+            : !loadRange
+              ? "No load history yet — start light and log this set."
+              : undefined,
+          tempo: prescribeTempo(block.role, session.config.style, replacement),
+          coachingCues: replacement.cues,
+          videoPlaceholder: replacement.videoPlaceholder,
+          substitutions: resolveSubstitutions(replacement, byId),
+          scalingOption: resolveOption(replacement.scalingExerciseId, byId),
+          progressionOption: resolveOption(replacement.progressionExerciseId, byId)
+        };
+      })
+    };
+  });
+
+  return { ...session, blocks };
+}

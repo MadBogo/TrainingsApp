@@ -4,3 +4,4 @@ export * from "./athleteRepository";
 export * from "./sessionRepository";
 export * from "./logRepository";
 export * from "./planRepository";
+export * from "./backup";

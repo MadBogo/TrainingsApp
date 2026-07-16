@@ -9,6 +9,7 @@ import { Chip } from "@/components/ui/chip";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { GlossaryInfo } from "@/components/GlossaryInfo";
+import { DataBackupCard } from "@/components/DataBackupCard";
 import { useAthleteStore } from "@/store/athleteStore";
 import { useExerciseStore } from "@/store/exerciseStore";
 import { estimateOneRepMax } from "@/engine/oneRepMax";
@@ -159,6 +160,8 @@ export function ProfileScreen() {
           )}
         </CardContent>
       </Card>
+
+      <DataBackupCard />
 
       <AddBenchmarkDialog
         open={addOpen}

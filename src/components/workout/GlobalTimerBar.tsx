@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Play, Pause, RotateCcw, Minus, Plus } from "lucide-react";
-import { useTimerStore } from "@/store/timerStore";
+import { useTimerStore, getTimerDisplay } from "@/store/timerStore";
 import { formatDuration } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
 export function GlobalTimerBar() {
-  const { label, mode, totalSeconds, elapsedSeconds, running, completed, pause, resume, reset, adjust, tick } =
-    useTimerStore();
+  const state = useTimerStore();
+  const { title, mode, segments, running, completed, pause, resume, reset, adjust, tick } = state;
 
   useEffect(() => {
     if (!running) return;
@@ -14,8 +14,8 @@ export function GlobalTimerBar() {
     return () => clearInterval(id);
   }, [running, tick]);
 
-  const display = mode === "countdown" ? Math.max(0, totalSeconds - elapsedSeconds) : elapsedSeconds;
-  const hasTimer = totalSeconds > 0 || mode === "stopwatch";
+  const { remainingSeconds, segmentLabel, segmentKind, segmentPosition } = getTimerDisplay(state);
+  const hasTimer = segments.length > 0 || mode === "stopwatch";
 
   if (!hasTimer) {
     return (
@@ -25,27 +25,44 @@ export function GlobalTimerBar() {
     );
   }
 
+  const isRest = segmentKind === "rest" && !completed;
+  const headline = completed ? "Time!" : segmentLabel || title;
+
   return (
     <div
       className={cn(
         "sticky bottom-16 z-30 border-t bg-bg-raised/95 px-4 py-3 backdrop-blur md:bottom-0",
-        completed ? "border-accent" : "border-border-subtle"
+        completed ? "border-accent" : isRest ? "border-info/50" : "border-border-subtle"
       )}
     >
       {/* Announced once on completion only — a per-second live region would spam screen readers. */}
       <span className="sr-only" role="status" aria-live="assertive">
-        {completed ? `Time's up${label ? ` — ${label}` : ""}` : ""}
+        {completed ? `Time's up${title ? ` — ${title}` : ""}` : ""}
       </span>
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-        <div className="min-w-0" role="timer" aria-label={`${label || "Timer"}: ${formatDuration(display)} remaining`}>
-          <p className="truncate text-xs font-medium uppercase tracking-wide text-ink-faint" aria-hidden="true">
-            {completed ? "Time!" : label}
-          </p>
+        <div
+          className="min-w-0"
+          role="timer"
+          aria-label={`${headline || "Timer"}: ${formatDuration(remainingSeconds)} ${mode === "stopwatch" ? "elapsed" : "remaining"}`}
+        >
           <p
-            className={cn("font-mono text-3xl font-bold tabular-nums", completed ? "text-accent" : "text-ink")}
+            className={cn(
+              "truncate text-xs font-medium uppercase tracking-wide",
+              isRest ? "text-info" : "text-ink-faint"
+            )}
             aria-hidden="true"
           >
-            {formatDuration(display)}
+            {headline}
+            {segmentPosition && <span className="ml-1.5 text-ink-faint">· {segmentPosition}</span>}
+          </p>
+          <p
+            className={cn(
+              "font-mono text-3xl font-bold tabular-nums",
+              completed ? "text-accent" : isRest ? "text-info" : "text-ink"
+            )}
+            aria-hidden="true"
+          >
+            {formatDuration(remainingSeconds)}
           </p>
         </div>
         <div className="flex items-center gap-1.5">

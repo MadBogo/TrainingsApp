@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Play, Info } from "lucide-react";
 import type { BlockExercise, Exercise, LoadFeedback, WorkoutBlock } from "@/domain";
-import { useTimerStore } from "@/store/timerStore";
+import { useTimerStore, type TimerSegment } from "@/store/timerStore";
 import { useLiveWorkoutStore } from "@/store/liveWorkoutStore";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -126,27 +126,42 @@ function SetsExercise({ be, onInfo, restSec }: { be: BlockExercise; onInfo: () =
 
 function ConditioningControls({ block }: { block: WorkoutBlock }) {
   const start = useTimerStore((s) => s.start);
+  const startSegments = useTimerStore((s) => s.startSegments);
 
   if (block.format === "interval") {
+    const rounds = block.rounds ?? 1;
+    const workSec = block.intervalWorkSec ?? 30;
+    const restSec = block.intervalRestSec ?? 20;
+    const segments = Array.from({ length: rounds }).flatMap((_, i): TimerSegment[] => [
+      { label: `Work · round ${i + 1}/${rounds}`, seconds: workSec, kind: "work" },
+      // No trailing rest after the final work interval.
+      ...(i < rounds - 1 ? [{ label: `Rest · round ${i + 1}/${rounds}`, seconds: restSec, kind: "rest" as const }] : [])
+    ]);
     return (
-      <div className="flex flex-wrap gap-2">
-        <Button size="sm" onClick={() => start(block.intervalWorkSec ?? 30, "Work")}>
-          Start work ({block.intervalWorkSec}s)
+      <div className="flex flex-wrap items-center gap-2">
+        <Button size="sm" onClick={() => startSegments(block.title, segments)}>
+          <Play className="h-3.5 w-3.5" /> Start intervals
         </Button>
-        <Button size="sm" variant="secondary" onClick={() => start(block.intervalRestSec ?? 20, "Rest")}>
-          Start rest ({block.intervalRestSec}s)
-        </Button>
-        <Badge tone="default">{block.rounds} rounds</Badge>
+        <Badge tone="default">
+          {rounds} × {workSec}s work / {restSec}s rest
+        </Badge>
       </div>
     );
   }
   if (block.format === "emom") {
+    const rounds = block.rounds ?? 10;
+    const minuteSec = block.intervalWorkSec ?? 60;
+    const segments: TimerSegment[] = Array.from({ length: rounds }).map((_, i) => ({
+      label: `Minute ${i + 1}/${rounds}`,
+      seconds: minuteSec,
+      kind: "work"
+    }));
     return (
       <div className="flex flex-wrap items-center gap-2">
-        <Button size="sm" onClick={() => start(block.intervalWorkSec ?? 60, "This minute")}>
-          <Play className="h-3.5 w-3.5" /> Start minute
+        <Button size="sm" onClick={() => startSegments(block.title, segments)}>
+          <Play className="h-3.5 w-3.5" /> Start EMOM
         </Button>
-        <Badge tone="default">{block.rounds} min total</Badge>
+        <Badge tone="default">{rounds} min · auto-advances each minute</Badge>
       </div>
     );
   }

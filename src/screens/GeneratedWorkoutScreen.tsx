@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Clock, Dumbbell, Play, RefreshCw, Settings2, Target } from "lucide-react";
+import { ArrowLeftRight, Clock, Dumbbell, Play, RefreshCw, Settings2, Target } from "lucide-react";
 import type { GeneratedSession } from "@/domain";
 import { sessionRepository, logRepository } from "@/repository";
 import { useExerciseStore } from "@/store/exerciseStore";
 import { useAthleteStore } from "@/store/athleteStore";
 import { useBuilderStore } from "@/store/builderStore";
-import { generateWorkout } from "@/engine/generateWorkout";
+import { generateWorkout, swapExerciseInSession } from "@/engine/generateWorkout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +17,7 @@ export function GeneratedWorkoutScreen() {
   const navigate = useNavigate();
   const [session, setSession] = useState<GeneratedSession | null>(null);
   const [regenerating, setRegenerating] = useState(false);
+  const [swapOpenFor, setSwapOpenFor] = useState<string | null>(null);
   const { exercises } = useExerciseStore();
   const { oneRepMaxes } = useAthleteStore();
 
@@ -43,6 +44,14 @@ export function GeneratedWorkoutScreen() {
     if (!session) return;
     useBuilderStore.setState({ config: session.config });
     navigate("/build");
+  }
+
+  async function handleSwap(blockId: string, blockExerciseId: string, newExerciseId: string) {
+    if (!session) return;
+    const next = swapExerciseInSession(session, blockId, blockExerciseId, newExerciseId, exercises, oneRepMaxes);
+    await sessionRepository.save(next);
+    setSession(next);
+    setSwapOpenFor(null);
   }
 
   if (!session) {
@@ -127,20 +136,52 @@ export function GeneratedWorkoutScreen() {
               </div>
               <ul className="mt-2 space-y-1">
                 {block.exercises.map((e) => (
-                  <li key={e.id} className="flex items-center justify-between gap-2 text-sm text-ink-muted">
-                    <span>
-                      {e.exerciseName}
-                      {e.sets ? ` — ${e.sets}×${e.reps}` : e.reps ? ` — ${e.reps}` : ""}
-                    </span>
-                    {e.loadRange ? (
-                      <Badge tone="accent" className="shrink-0">
-                        {e.loadRange.minKg}–{e.loadRange.maxKg} kg
-                      </Badge>
-                    ) : e.bodyweightNote === "Bodyweight" ? (
-                      <Badge tone="default" className="shrink-0">
-                        Bodyweight
-                      </Badge>
-                    ) : null}
+                  <li key={e.id} className="text-sm text-ink-muted">
+                    <div className="flex items-center justify-between gap-2">
+                      <span>
+                        {e.exerciseName}
+                        {e.sets ? ` — ${e.sets}×${e.reps}` : e.reps ? ` — ${e.reps}` : ""}
+                      </span>
+                      <span className="flex shrink-0 items-center gap-1.5">
+                        {e.loadRange ? (
+                          <Badge tone="accent">
+                            {e.loadRange.minKg}–{e.loadRange.maxKg} kg
+                          </Badge>
+                        ) : e.bodyweightNote === "Bodyweight" ? (
+                          <Badge tone="default">Bodyweight</Badge>
+                        ) : null}
+                        {e.substitutions.length > 0 && (
+                          <button
+                            type="button"
+                            aria-label={`Swap ${e.exerciseName} for a substitute`}
+                            aria-expanded={swapOpenFor === e.id}
+                            onClick={() => setSwapOpenFor(swapOpenFor === e.id ? null : e.id)}
+                            className={`flex h-7 w-7 items-center justify-center rounded-lg border ${
+                              swapOpenFor === e.id
+                                ? "border-accent text-accent"
+                                : "border-border text-ink-faint hover:text-accent"
+                            }`}
+                          >
+                            <ArrowLeftRight className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </span>
+                    </div>
+                    {swapOpenFor === e.id && (
+                      <div className="mt-1.5 space-y-1.5 rounded-lg border border-border-subtle bg-bg-surface p-2">
+                        {e.substitutions.map((sub) => (
+                          <button
+                            key={sub.exerciseId}
+                            type="button"
+                            onClick={() => handleSwap(block.id, e.id, sub.exerciseId)}
+                            className="block w-full rounded-md px-2 py-1.5 text-left hover:bg-bg-elevated"
+                          >
+                            <span className="font-medium text-ink">{sub.exerciseName}</span>
+                            <span className="block text-xs text-ink-faint">{sub.reason}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
